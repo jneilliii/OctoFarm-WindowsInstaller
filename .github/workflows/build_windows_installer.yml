@@ -1,0 +1,46 @@
+name: 👷 Build Installer
+
+on:
+  push:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [octofarm_release]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: 📌 Checkout
+      uses: actions/checkout@v3
+
+    - name: Get Time
+      id: time
+      uses: nanzm/get-time-action@v1.1
+      with:
+        timeZone: 0
+        format: 'YYYY-MM-DD-HH-mm-ss'
+
+    - name: 🔨 Build Installer
+      run: |
+        "%programfiles(x86)%\Inno Setup 6\iscc.exe" /DOctoFarmSetupVersion="${{ steps.time.outputs.time }}" "OctoFarm-WindowsInstaller.iss"
+      shell: cmd
+
+    - name: 🧹 Delete Existing Release and Tag
+      uses: ClementTsang/delete-tag-and-release@v0.3.1
+      with:
+        delete_release: true
+        tag_name: ${{ steps.time.outputs.time }} # tag name to delete
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: 🚀 Create Release and Attach Assets
+      uses: softprops/action-gh-release@v1
+      with:
+        name: "OctoFarm Setup ${{ steps.time.outputs.time }}"
+        tag_name: "${{ steps.time.outputs.time }}"
+        body: "OctoFarm Setup created with Inno Setup and GitHub Actions."
+        fail_on_unmatched_files: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+        files: |
+          Output/OctoFarm Setup ${{ steps.time.outputs.time }}.exe
