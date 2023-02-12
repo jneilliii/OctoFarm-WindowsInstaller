@@ -1,10 +1,7 @@
 name: 👷 Build Installer
 
 on:
-  push:
   workflow_dispatch:
-  repository_dispatch:
-    types: [octofarm_release]
 
 jobs:
   build:
