@@ -1,6 +1,9 @@
 name: 👷 Build Installer
 
 on:
+  push:
+    tags-ignore:
+      - '**'
   workflow_dispatch:
 
 jobs:
