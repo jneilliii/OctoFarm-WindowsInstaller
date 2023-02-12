@@ -13,9 +13,9 @@ jobs:
 
     - name: ⌚ Get Time
       id: time
-      uses: nanzm/get-time-action@v1.1
+      uses: boredland/get-time-action@master
       with:
-        timeZone: 0
+        timeZone: UTC+8
         format: 'YYYY-MM-DD'
 
     - name: 🔨 Build Installer
