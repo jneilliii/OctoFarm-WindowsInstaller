@@ -21,6 +21,7 @@ OutputBaseFilename=OctoFarm Setup {#MyAppVersion}
 WizardImageFile=WizModernImage-OctoFarm*.bmp
 WizardSmallImageFile=WizModernSmallImage-OctoFarm*.bmp
 WizardStyle=modern
+DisableWelcomePage=False
 
 [Run]
 Filename: "{app}\dependencies\Git-2.39.1-64-bit.exe"; WorkingDir: "{app}\dependencies"; Flags: runascurrentuser; Description: "Install Git for Windows"; StatusMsg: "Installing Git for Windows"
