@@ -15,7 +15,6 @@ jobs:
       id: time
       uses: boredland/get-time-action@master
       with:
-        timeZone: UTC+8
         format: 'YYYY-MM-DD'
 
     - name: 🔨 Build Installer
