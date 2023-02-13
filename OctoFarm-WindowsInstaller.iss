@@ -30,11 +30,11 @@ Filename: "powershell"; Parameters: "-command ""New-Item -Path '{app}\data\db' -
 Filename: "powershell"; Parameters: "-command ""New-Item -Path '{app}\data\logs' -ItemType Directory"""; Flags: runascurrentuser runhidden; Description: "Create logs folder"; StatusMsg: "Creating logs folder"
 Filename: "{app}\dependencies\mongodb-win32-x86_64-windows-4.4.17\bin\mongod.exe"; Parameters: "--install --logpath {app}\data\logs\mongod.log"; WorkingDir: "{app}\dependencies\mongodb-win32-x86_64-windows-4.4.17\bin"; Flags: runascurrentuser runhidden; Description: "Add MongoDB Service"; StatusMsg: "Adding MongoDB Service"
 Filename: "net.exe"; Parameters: "start MongoDB"; WorkingDir: "{sys}"; Flags: runascurrentuser runhidden; Description: "Start MongoDB Service"; StatusMsg: "Starting MongoDB Service"
-Filename: "{app}\dependencies\node-v18.14.0-x64.msi"; WorkingDir: "{app}\dependencies"; Flags: runascurrentuser shellexec waituntilterminated; Description: "Install Node JS"; StatusMsg: "Installing Node JS"
+Filename: "msiexec.exe"; Parameters: "/i {app}\dependencies\node-v18.14.0-x64.msi /qn ADDLOCAL=ALL"; WorkingDir: "{app}\dependencies"; Flags: runascurrentuser shellexec waituntilterminated runhidden; Description: "Install Node JS"; StatusMsg: "Installing Node JS"
 Filename: "powershell"; Parameters: "-command ""Expand-Archive {app}\dependencies\OctoFarm.zip {app}"""; Flags: runascurrentuser runhidden; Description: "Extract OctoFarm"; StatusMsg: "Extracting OctoFarm"
-Filename: "npm"; Parameters: "install pm2 -g"; Flags: shellexec waituntilterminated runascurrentuser; Description: "Install pm2"; StatusMsg: "Installing pm2"
-Filename: "npm"; Parameters: "install"; WorkingDir: "{app}\OctoFarm-master"; Flags: runascurrentuser shellexec waituntilterminated; Description: "Install OctoFarm modules"; StatusMsg: "Installing OctoFarm and required modules"
-Filename: "npm"; Parameters: "start"; WorkingDir: "{app}\OctoFarm-master"; Flags: runascurrentuser shellexec waituntilterminated; Description: "Start OctoFarm"; StatusMsg: "Starting OctoFarm"
+Filename: "{pf}\nodejs\npm"; Parameters: "install pm2 -g"; Flags: shellexec waituntilterminated runascurrentuser runhidden; Description: "Install pm2"; StatusMsg: "Installing pm2"
+Filename: "{pf}\nodejs\npm"; Parameters: "--prefix {app}\OctoFarm-master start"; WorkingDir: "{app}\OctoFarm-master"; Flags: shellexec waituntilterminated runascurrentuser runhidden; Description: "Start OctoFarm"; StatusMsg: "Starting OctoFarm"
+Filename: "http://localhost:4000/"; Flags: nowait postinstall shellexec; Description: "Open OctoFarm in default browser"; StatusMsg: "Opening OctoFarm"
 
 [Files]
 Source: "{tmp}\mongodb-windows-x86_64-4.4.17.zip"; DestDir: "{app}\dependencies\"; Flags: external
