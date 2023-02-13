@@ -24,7 +24,6 @@ WizardStyle=modern
 DisableWelcomePage=False
 
 [Run]
-Filename: "{app}\dependencies\Git-2.39.1-64-bit.exe"; WorkingDir: "{app}\dependencies"; Flags: runascurrentuser; Description: "Install Git for Windows"; StatusMsg: "Installing Git for Windows"
 Filename: "powershell"; Parameters: "-command ""Expand-Archive {app}\dependencies\mongodb-windows-x86_64-4.4.17.zip {app}\dependencies"""; Flags: runascurrentuser runhidden; Description: "Extract MongoDB"; StatusMsg: "Extracting MongoDB"
 Filename: "powershell"; Parameters: "-command ""New-Item -Path '{app}\data' -ItemType Directory"""; Flags: runascurrentuser runhidden; Description: "Create data folder"; StatusMsg: "Creating data folder"
 Filename: "powershell"; Parameters: "-command ""New-Item -Path '{app}\data\db' -ItemType Directory"""; Flags: runascurrentuser runhidden; Description: "Create db folder"; StatusMsg: "Creating db folder"
@@ -38,9 +37,8 @@ Filename: "npm"; Parameters: "install"; WorkingDir: "{app}\OctoFarm-master"; Fla
 Filename: "npm"; Parameters: "start"; WorkingDir: "{app}\OctoFarm-master"; Flags: runascurrentuser shellexec waituntilterminated; Description: "Start OctoFarm"; StatusMsg: "Starting OctoFarm"
 
 [Files]
-Source: "{tmp}\Git-2.39.1-64-bit.exe"; DestDir: "{app}\dependencies\"; Flags: external
 Source: "{tmp}\mongodb-windows-x86_64-4.4.17.zip"; DestDir: "{app}\dependencies\"; Flags: external
-Source: "{tmp}\node-v18.14.0-x64.msi"; DestDir: "{app}\dependencies\"; Flags: external    
+Source: "{tmp}\node-v18.14.0-x64.msi"; DestDir: "{app}\dependencies\"; Flags: external
 Source: "{tmp}\OctoFarm.zip"; DestDir: "{app}\dependencies\"; Flags: external
 
 [UninstallRun]
@@ -76,7 +74,6 @@ function NextButtonClick(CurPageID: Integer): Boolean;
 begin
   if CurPageID = wpReady then begin
     DownloadPage.Clear;
-    DownloadPage.Add('https://github.com/git-for-windows/git/releases/download/v2.39.1.windows.1/Git-2.39.1-64-bit.exe', 'Git-2.39.1-64-bit.exe', '82d088233144054d14d8cc890870544f1ac6ac73aebade87c4d96c97b55d8508'); 
     DownloadPage.Add('https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-4.4.17.zip', 'mongodb-windows-x86_64-4.4.17.zip', '');
     DownloadPage.Add('https://nodejs.org/dist/v18.14.0/node-v18.14.0-x64.msi', 'node-v18.14.0-x64.msi', '944eff6104be19d1dc24f3940ab365aa972c47ee2a6b7cfee49dd436e748bd99');
     DownloadPage.Add('https://github.com/OctoFarm/OctoFarm/archive/refs/heads/master.zip', 'OctoFarm.zip', '');
