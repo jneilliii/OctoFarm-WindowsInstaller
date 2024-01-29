@@ -26,8 +26,8 @@ jobs:
       shell: cmd
 
     - name: 🧹 Delete Existing Release and Tag
-      run: gh release delete ${{ steps.time.outputs.time }} --cleanup-tag
-      if: gh release view ${{ steps.time.outputs.time }}
+      if: gh release view "${{ steps.time.outputs.time }}" &>/dev/null
+      run: gh release delete "${{ steps.time.outputs.time }}" --cleanup-tag
       env:
         GITHUB_TOKEN: ${{ secrets.REPODISPATCH_TOKEN }}
 
