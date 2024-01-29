@@ -26,10 +26,7 @@ jobs:
       shell: cmd
 
     - name: 🧹 Delete Existing Release and Tag
-      uses: ClementTsang/delete-tag-and-release@v0.3.1
-      with:
-        delete_release: true
-        tag_name: ${{ steps.time.outputs.time }} # tag name to delete
+      run: gh release delete ${{ steps.time.outputs.time }} --cleanup-tag
       env:
         GITHUB_TOKEN: ${{ secrets.REPODISPATCH_TOKEN }}
 
