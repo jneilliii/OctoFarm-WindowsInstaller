@@ -34,7 +34,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.REPODISPATCH_TOKEN }}
 
     - name: 🚀 Create Release and Attach Assets
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         name: "OctoFarm Setup ${{ steps.time.outputs.time }}"
         tag_name: "${{ steps.time.outputs.time }}"
